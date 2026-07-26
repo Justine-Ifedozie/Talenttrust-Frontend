@@ -4,6 +4,7 @@ import React, { useState, useCallback } from 'react';
 import EmptyState from '../../components/EmptyState';
 import { ContractCreationForm } from '../../components/ContractCreationForm';
 import { listContracts, saveContract } from '@/lib/repository';
+import { getRelativeTime } from '@/lib/relativeTime';
 import type { Contract } from '@/types/domain';
 
 const ContractsPage: React.FC = () => {
@@ -70,7 +71,10 @@ const ContractsPage: React.FC = () => {
               >
                 <p className="font-semibold text-slate-900">{contract.contractName}</p>
                 <p className="text-sm text-slate-500">
-                  {contract.status} · Created {contract.createdAt}
+                  {contract.status} · Created{' '}
+                  <span title={contract.createdAt}>
+                    {getRelativeTime(contract.createdAt)}
+                  </span>
                 </p>
               </li>
             ))}
@@ -89,4 +93,3 @@ const ContractsPage: React.FC = () => {
 };
 
 export default ContractsPage;
-

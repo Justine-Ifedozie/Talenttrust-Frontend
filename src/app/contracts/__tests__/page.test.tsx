@@ -92,8 +92,10 @@ describe('ContractsPage', () => {
 
       expect(screen.getByText('Website Redesign')).toBeInTheDocument();
       expect(screen.getByText('Mobile App Development')).toBeInTheDocument();
-      expect(screen.getByText(/active.*jan 15, 2025/i)).toBeInTheDocument();
-      expect(screen.getByText(/pending.*feb 1, 2025/i)).toBeInTheDocument();
+      expect(screen.getByText(/^Active ·/)).toBeInTheDocument();
+      expect(screen.getByText(/^Pending ·/)).toBeInTheDocument();
+      expect(screen.getByTitle('Jan 15, 2025')).toBeInTheDocument();
+      expect(screen.getByTitle('Feb 1, 2025')).toBeInTheDocument();
     });
 
     it('does not show empty state when contracts exist', () => {
@@ -435,7 +437,8 @@ describe('ContractsPage', () => {
     render(<ContractsPage />);
 
     expect(screen.getByText('Existing Contract')).toBeInTheDocument();
-    expect(screen.getByText(/Active · Created Apr 20, 2026/)).toBeInTheDocument();
+    expect(screen.getByText(/Active · Created/)).toBeInTheDocument();
+    expect(screen.getByTitle('Apr 20, 2026')).toBeInTheDocument();
   });
 
   it('calls saveContract and refreshes contracts on form submission', async () => {
